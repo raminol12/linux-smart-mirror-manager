@@ -1,16 +1,16 @@
 # 🐧 Linux Smart Mirror Manager
 
-ابزار هوشمند Bash برای **تست، مقایسه و مدیریت Mirrorهای APT** در Ubuntu و Debian، با تمرکز ویژه روی سرورهای داخل ایران.
+ابزار Bash برای **تست، مقایسه، رتبه‌بندی و مدیریت Mirrorهای APT** در Ubuntu و Debian، با تمرکز ویژه روی سرورهای داخل ایران.
 
 ## ⚡ نصب سریع
 
-برای نصب و آماده‌سازی پروژه فقط **یک دستور** اجرا کنید:
+برای نصب و آماده‌سازی پروژه فقط یک دستور اجرا کنید:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/raminol12/linux-smart-mirror-manager/main/install.sh | sudo bash
 ```
 
-بعد از نصب، برنامه را اجرا کنید:
+بعد از نصب:
 
 ```bash
 smart-mirror
@@ -18,7 +18,7 @@ smart-mirror
 
 ### 🔄 به‌روزرسانی
 
-برای دریافت آخرین نسخه نیز همین دستور را دوباره اجرا کنید:
+همین دستور را دوباره اجرا کنید:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/raminol12/linux-smart-mirror-manager/main/install.sh | sudo bash
@@ -29,8 +29,6 @@ curl -fsSL https://raw.githubusercontent.com/raminol12/linux-smart-mirror-manage
 ---
 
 ## 📦 نصب دستی
-
-در صورت تمایل به نصب دستی:
 
 ```bash
 git clone https://github.com/raminol12/linux-smart-mirror-manager.git
@@ -43,17 +41,18 @@ sudo ./smart-mirror.sh
 
 ## ✨ امکانات
 
-- 🇮🇷 تست Mirrorهای ایرانی
-- 🌍 تست Mirrorهای خارجی
-- 🎯 انتخاب دستی Mirrorها قبل از شروع تست
-- 🔀 تست Mirrorهای ایران و خارج
-- 📡 بررسی واقعی Repository و فایل Release
-- ⚡ اندازه‌گیری زمان پاسخ
-- 📥 بررسی سرعت دریافت Repository metadata
-- 🏆 مقایسه نتایج Mirrorها
-- 💾 Backup قبل از تغییر Repository
-- 🔄 Restore تنظیمات قبلی
-- 📝 ذخیره گزارش تست
+- 🇮🇷 انتخاب و تست تمام Mirrorهای ایرانی
+- 🌍 انتخاب و تست تمام Mirrorهای خارجی
+- 🔀 تست تمام Mirrorهای ایرانی و خارجی با هم
+- 🎯 انتخاب دستی Mirrorها با شماره و بازه
+- 📡 بررسی واقعی `dists/<codename>/Release`
+- ⚡ اندازه‌گیری Latency
+- 📥 اندازه‌گیری سرعت دریافت metadata
+- 🏆 رتبه‌بندی Mirrorهای موفق بر اساس سرعت
+- 📝 ذخیره گزارش هر تست
+- 💾 Backup خودکار تنظیمات APT قبل از تغییر
+- 🚀 اعمال بهترین Mirror موفق تست قبلی
+- 🔄 Restore آخرین Backup
 - 🐧 پشتیبانی از Ubuntu و Debian
 
 ---
@@ -61,76 +60,135 @@ sudo ./smart-mirror.sh
 ## 🧭 منوی اصلی
 
 ```text
-1) Test Iranian mirrors
-2) Test foreign mirrors
-3) Test Iranian + foreign mirrors
+1) Select all Iranian mirrors
+2) Select all foreign mirrors
+3) Select all Iranian + foreign mirrors
 4) Manual mirror selection
 5) Show available mirrors
-6) Restore backup
+6) Apply best mirror from last test
+7) Restore latest APT backup
 0) Exit
 ```
 
-تمام متن گزینه‌های منو عمداً انگلیسی است.
+تمام گزینه‌های منو عمداً انگلیسی هستند.
 
----
+### گزینه 1
+تمام Mirrorهای موجود در `mirrors-iran.txt` را انتخاب و تست می‌کند.
 
-## 🎯 انتخاب دستی Mirrorها
+### گزینه 2
+تمام Mirrorهای موجود در `mirrors-foreign.txt` را انتخاب و تست می‌کند.
 
-با انتخاب گزینه زیر:
+### گزینه 3
+تمام Mirrorهای ایرانی و خارجی را با هم تست می‌کند.
 
-```text
-4) Manual mirror selection
-```
-
-می‌توانید مشخص کنید کدام Mirrorها تست شوند.
-
-چند مورد:
+### گزینه 4
+انتخاب دستی؛ مثال:
 
 ```text
-1,3,5,8,13
+1,3,5,8
 ```
 
-یک بازه:
+یا:
 
 ```text
-1-8
+1-10
 ```
 
-ترکیبی:
+یا ترکیبی:
 
 ```text
-1-5,10,13-16
+1-5,8,12-15
 ```
+
+### گزینه 6
+بعد از تست، سریع‌ترین Mirror موفق را از آخرین گزارش پیدا می‌کند، قبل از اعمال از کاربر تأیید می‌گیرد، از تنظیمات APT Backup می‌سازد و سپس یک فایل مدیریت‌شده برای Mirror ایجاد می‌کند.
+
+### گزینه 7
+آخرین Backup ذخیره‌شده را برمی‌گرداند.
 
 ---
 
 ## 🔍 روش تست
 
-برای هر Mirror، ابتدا دسترسی واقعی به Repository بررسی می‌شود. سپس زمان پاسخ و سرعت دریافت metadata اندازه‌گیری می‌شود.
+برای هر Mirror ابتدا فایل Release مربوط به Codename سیستم بررسی می‌شود.
 
-برای Ubuntu، فایل Release مربوط به Codename سیستم مانند زیر بررسی می‌شود:
+مثلاً برای Ubuntu 22.04:
 
 ```text
 dists/jammy/Release
 ```
 
-برای Debian نیز Codename سیستم استفاده می‌شود.
+و برای Debian 12:
+
+```text
+dists/bookworm/Release
+```
+
+اگر HTTP status برابر `200` باشد، Mirror موفق محسوب می‌شود. سپس Latency و سرعت دریافت metadata اندازه‌گیری می‌شود.
+
+در پایان، Mirrorهای موفق بر اساس سرعت مرتب می‌شوند.
+
+---
+
+## 🇮🇷 Mirrorهای ایران
+
+لیست Mirrorهای ایران در:
+
+```text
+mirrors-iran.txt
+```
+
+قرار دارد.
+
+این لیست شامل Mirrorهای Ubuntu و Debian است و منابع شناخته‌شده‌ای مانند ArvanCloud، Pardis، Sharif، IUT، LinuxMirrors.ir و Petiak را دربرمی‌گیرد.
+
+## 🌍 Mirrorهای خارجی
+
+لیست Mirrorهای خارجی در:
+
+```text
+mirrors-foreign.txt
+```
+
+قرار دارد.
+
+این فایل شامل Mirrorهای عمومی و شناخته‌شده Ubuntu و Debian در نقاط مختلف جهان است.
+
+فرمت هر خط:
+
+```text
+Name|Country|Distribution|URL
+```
+
+خطوطی که با `#` شروع شوند Comment هستند.
+
+> وضعیت Mirrorها ممکن است تغییر کند. خود برنامه قبل از استفاده، Mirror را از روی سرور مقصد تست می‌کند.
 
 ---
 
 ## 💾 Backup و گزارش‌ها
 
-Backup تنظیمات APT در مسیر زیر ذخیره می‌شود:
+Backupها در:
 
 ```text
 /root/smart-mirror/backups/
 ```
 
-گزارش‌های تست در مسیر زیر قرار می‌گیرند:
+و گزارش‌ها در:
 
 ```text
 /root/smart-mirror/reports/
 ```
+
+ذخیره می‌شوند.
+
+آخرین گزارش نیز در:
+
+```text
+/root/smart-mirror/last-report
+```
+
+نگهداری می‌شود.
 
 ---
 
@@ -150,62 +208,45 @@ linux-smart-mirror-manager/
 
 ---
 
-## 🇮🇷 Mirrorهای ایران
-
-لیست Mirrorهای ایران در فایل زیر قرار دارد:
-
-```text
-mirrors-iran.txt
-```
-
-## 🌍 Mirrorهای خارجی
-
-لیست Mirrorهای خارجی در فایل زیر قرار دارد:
-
-```text
-mirrors-foreign.txt
-```
-
-فرمت هر خط:
-
-```text
-Name|Country|Distribution|URL
-```
-
-خطوطی که با `#` شروع شوند Comment هستند.
-
-> وضعیت Mirrorها ممکن است تغییر کند. قبل از استفاده در Production، معتبر بودن URL و وضعیت Mirror را بررسی کنید.
-
----
-
 ## 🖥️ سیستم‌عامل‌های پشتیبانی‌شده
 
 - Ubuntu
 - Debian
 
+پیش‌نیازهای اصلی:
+
+- Bash
+- curl
+- apt-get
+- ابزارهای استاندارد لینوکس
+- دسترسی root
+
 ---
 
 ## ⚠️ نکات مهم
 
-نتیجه تست به موقعیت سرور، ISP، Routing، DNS، IPv4/IPv6، Packet Loss، شلوغی شبکه و وضعیت لحظه‌ای Mirror وابسته است. بنابراین سریع‌ترین Mirror روی یک سرور الزاماً روی سرور دیگری سریع‌ترین گزینه نیست.
+سرعت Mirror به موقعیت سرور، ISP، Routing، DNS، IPv4/IPv6، Packet Loss، شلوغی شبکه و وضعیت لحظه‌ای Mirror وابسته است.
 
-قبل از تغییر Repository روی سرور Production از تنظیمات خود Backup داشته باشید.
+بنابراین بهترین Mirror برای یک سرور ممکن است برای سرور دیگری متفاوت باشد.
+
+قبل از تغییر Repository روی سرور Production حتماً Backup داشته باشید.
+
+همچنین برنامه Repositoryهای شخص ثالث را عمداً تغییر نمی‌دهد؛ اعمال Mirror از طریق فایل مدیریت‌شده `99-smart-mirror.list` انجام می‌شود.
 
 ---
 
 ## 🗺️ Roadmap
 
-- [ ] پشتیبانی از Arch Linux
-- [ ] پشتیبانی از Fedora
-- [ ] پشتیبانی از Rocky Linux
 - [ ] تست DNS
 - [ ] تست Packet Loss
 - [ ] تست IPv4 و IPv6
-- [ ] Benchmark پیشرفته
+- [ ] Benchmark چندمرحله‌ای
+- [ ] تست موازی Mirrorها
 - [ ] خروجی JSON و CSV
 - [ ] تاریخچه نتایج
-- [ ] امتیازدهی هوشمند Mirrorها
+- [ ] امتیازدهی هوشمند
 - [ ] Failover خودکار
+- [ ] به‌روزرسانی خودکار لیست Mirrorها
 
 ---
 
