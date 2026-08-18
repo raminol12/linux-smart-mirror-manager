@@ -1,0 +1,17 @@
+# Name|Country|Distribution|URL
+Ubuntu Archive|GLOBAL|Ubuntu|https://archive.ubuntu.com/ubuntu/
+Ubuntu Security|GLOBAL|Ubuntu|https://security.ubuntu.com/ubuntu/
+Ubuntu Germany|DE|Ubuntu|https://de.archive.ubuntu.com/ubuntu/
+Ubuntu Netherlands|NL|Ubuntu|https://nl.archive.ubuntu.com/ubuntu/
+Ubuntu United Kingdom|GB|Ubuntu|https://gb.archive.ubuntu.com/ubuntu/
+Ubuntu France|FR|Ubuntu|https://fr.archive.ubuntu.com/ubuntu/
+Ubuntu Japan|JP|Ubuntu|https://jp.archive.ubuntu.com/ubuntu/
+Ubuntu Singapore|SG|Ubuntu|https://sg.archive.ubuntu.com/ubuntu/
+Ubuntu Australia|AU|Ubuntu|https://au.archive.ubuntu.com/ubuntu/
+Debian CDN|GLOBAL|Debian|https://deb.debian.org/debian/
+Debian Security|GLOBAL|Debian|https://deb.debian.org/debian-security/
+Debian Germany|DE|Debian|https://ftp.de.debian.org/debian/
+Debian Netherlands|NL|Debian|https://ftp.nl.debian.org/debian/
+Debian France|FR|Debian|https://ftp.fr.debian.org/debian/
+Debian Japan|JP|Debian|https://ftp.jp.debian.org/debian/
+Debian United Kingdom|GB|Debian|https://ftp.uk.debian.org/debian/
