@@ -1,0 +1,11 @@
+# Name|Country|Distribution|URL
+ArvanCloud|IR|Ubuntu|https://mirror.arvancloud.ir/ubuntu/
+ArvanCloud|IR|Debian|https://mirror.arvancloud.ir/debian/
+Pardis Technology|IR|Ubuntu|https://mirror.pardis.ac/ubuntu/
+Pardis Technology|IR|Debian|https://mirror.pardis.ac/debian/
+Sharif University|IR|Ubuntu|https://mirror.sharif.edu/ubuntu/
+Sharif University|IR|Debian|https://mirror.sharif.edu/debian/
+University of Tehran|IR|Ubuntu|https://mirror.ut.ac.ir/ubuntu/
+University of Tehran|IR|Debian|https://mirror.ut.ac.ir/debian/
+IAU|IR|Ubuntu|https://mirror.iust.ac.ir/ubuntu/
+IAU|IR|Debian|https://mirror.iust.ac.ir/debian/
