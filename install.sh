@@ -17,6 +17,11 @@ if ! command -v curl >/dev/null 2>&1; then
   apt-get install -y curl
 fi
 
+if ! command -v awk >/dev/null 2>&1; then
+  echo "ERROR: awk is required."
+  exit 1
+fi
+
 echo "Downloading latest Linux Smart Mirror Manager from GitHub..."
 for file in smart-mirror.sh mirrors-iran.txt mirrors-foreign.txt README.md; do
   echo "  -> $file"
@@ -35,10 +40,8 @@ if [[ "$iran_count" -eq 0 || "$foreign_count" -eq 0 ]]; then
   exit 1
 fi
 
-# Verify that the executable itself can see the mirror files through the symlink.
-if ! "$INSTALL_DIR/smart-mirror.sh" --version >/dev/null 2>&1; then
-  :
-fi
+# Do not execute smart-mirror.sh here: it is an interactive program and would wait
+# for keyboard input during a curl | sudo bash installation.
 
 echo
 echo "=============================================================="
