@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="https://github.com/raminol12/linux-smart-mirror-manager.git"
+REPO_RAW="https://raw.githubusercontent.com/raminol12/linux-smart-mirror-manager/main"
 INSTALL_DIR="/opt/linux-smart-mirror-manager"
 
 if [ "$(id -u)" -ne 0 ]; then
@@ -9,42 +9,39 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-if ! command -v git >/dev/null 2>&1; then
-    echo "Installing Git..."
+mkdir -p "$INSTALL_DIR"
+
+if ! command -v curl >/dev/null 2>&1; then
+    echo "Installing curl..."
     apt-get update
-    apt-get install -y git
+    apt-get install -y curl
 fi
 
-if [ -d "$INSTALL_DIR/.git" ]; then
-    echo "Updating existing installation..."
-    git -C "$INSTALL_DIR" fetch origin main
-    git -C "$INSTALL_DIR" checkout -q main
-    git -C "$INSTALL_DIR" pull --ff-only origin main
-else
-    echo "Cloning repository..."
-    rm -rf "$INSTALL_DIR"
-    git clone --branch main "$REPO" "$INSTALL_DIR"
-fi
-
-# Make sure the repository data files are present after installation/update.
+echo "Downloading latest Linux Smart Mirror Manager from GitHub..."
 for file in smart-mirror.sh mirrors-iran.txt mirrors-foreign.txt; do
-    if [ ! -s "$INSTALL_DIR/$file" ]; then
-        echo "ERROR: Required file is missing or empty: $file"
-        exit 1
-    fi
+    echo "  -> $file"
+    curl -4 -fL --retry 3 --connect-timeout 10 --max-time 60 \
+        -o "$INSTALL_DIR/$file" "$REPO_RAW/$file"
 done
 
 chmod +x "$INSTALL_DIR/smart-mirror.sh"
-ln -sf "$INSTALL_DIR/smart-mirror.sh" /usr/local/bin/smart-mirror
+ln -sfn "$INSTALL_DIR/smart-mirror.sh" /usr/local/bin/smart-mirror
+
+iran_count=$(awk -F'|' 'NF>=4 && $1 !~ /^#/ {n++} END{print n+0}' "$INSTALL_DIR/mirrors-iran.txt")
+foreign_count=$(awk -F'|' 'NF>=4 && $1 !~ /^#/ {n++} END{print n+0}' "$INSTALL_DIR/mirrors-foreign.txt")
+
+if [ "$iran_count" -eq 0 ] || [ "$foreign_count" -eq 0 ]; then
+    echo "ERROR: Mirror lists were downloaded but contain no valid entries."
+    exit 1
+fi
 
 echo
 echo "=============================================================="
 echo "       Linux Smart Mirror Manager installed successfully"
 echo "=============================================================="
-echo "Installed files:"
-echo "  $INSTALL_DIR/smart-mirror.sh"
-echo "  $INSTALL_DIR/mirrors-iran.txt"
-echo "  $INSTALL_DIR/mirrors-foreign.txt"
+echo "Install directory : $INSTALL_DIR"
+echo "Iranian mirrors   : $iran_count"
+echo "Foreign mirrors   : $foreign_count"
 echo
 echo "Run: smart-mirror"
 echo
