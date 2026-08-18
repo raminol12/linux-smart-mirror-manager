@@ -1,11 +1,15 @@
 # Name|Country|Distribution|URL
 ArvanCloud|IR|Ubuntu|https://mirror.arvancloud.ir/ubuntu/
+Pardis Co.|IR|Ubuntu|https://mirrors.pardisco.co/ubuntu/
+Sharif University|IR|Ubuntu|http://mirror.sharif.edu/ubuntu/
+University of Tehran|IR|Ubuntu|http://ubuntu.ut.ac.ir/ubuntu/
+IUT|IR|Ubuntu|https://repo.iut.ac.ir/ubuntu/
+LinuxMirrors.ir|IR|Ubuntu|https://repo.linuxmirrors.ir/ubuntu/
+Shatel|IR|Ubuntu|https://ubuntu.shatel.ir/ubuntu/
+KimiaHost|IR|Ubuntu|https://ubuntu-mirror.kimiahost.com/ubuntu/
+IranServer|IR|Ubuntu|https://mirror.iranserver.com/ubuntu/
+Petiak|IR|Ubuntu|https://archive.ubuntu.petiak.ir/ubuntu/
 ArvanCloud|IR|Debian|https://mirror.arvancloud.ir/debian/
-Pardis Technology|IR|Ubuntu|https://mirror.pardis.ac/ubuntu/
-Pardis Technology|IR|Debian|https://mirror.pardis.ac/debian/
-Sharif University|IR|Ubuntu|https://mirror.sharif.edu/ubuntu/
-Sharif University|IR|Debian|https://mirror.sharif.edu/debian/
-University of Tehran|IR|Ubuntu|https://mirror.ut.ac.ir/ubuntu/
-University of Tehran|IR|Debian|https://mirror.ut.ac.ir/debian/
-IAU|IR|Ubuntu|https://mirror.iust.ac.ir/ubuntu/
-IAU|IR|Debian|https://mirror.iust.ac.ir/debian/
+Petiak|IR|Debian|https://archive.debian.petiak.ir/debian/
+HostIran|IR|Debian|https://debian.hostiran.ir/debian/
+Sharif University|IR|Debian|http://mirror.sharif.edu/debian/
