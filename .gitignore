@@ -1,0 +1,16 @@
+# Runtime files
+*.log
+*.tmp
+*.bak
+
+# Generated reports
+reports/
+
+# Local backups
+backups/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
